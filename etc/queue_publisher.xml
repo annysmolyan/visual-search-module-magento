@@ -1,0 +1,18 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/publisher.xsd">
+<!--
+/**
+* Copyright (c) 2023 by https://github.com/annysmolyan
+*
+* This module provides a visual search functionality for an e-commerce store.
+* For license details, please view the GNU General Public License v3 (GPL 3.0)
+* https://www.gnu.org/licenses/gpl-3.0.en.html
+*/
+-->
+    <!--
+        Defines the exchange where a topic is published.
+        Declare the publisher, link it to the topic and indicate the exchanger that will be used by it.
+    -->
+    <publisher topic="vsdataVectorChangeTopic">
+        <connection name="amqp" exchange="vsdataVectorChangeExchange" disabled="false"/>
+    </publisher>
+</config>

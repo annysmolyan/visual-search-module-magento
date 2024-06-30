@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2023 by https://github.com/annysmolyan
+ *
+ * This module provides a visual search functionality for an e-commerce store.
+ * For license details, please view the GNU General Public License v3 (GPL 3.0)
+ * https://www.gnu.org/licenses/gpl-3.0.en.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Indexer/etc/indexer.xsd">
+    <!--
+        Provide functionality for vector image search indexing.
+        This will be shown in Indexer Management in admin panel
+        Elastic Api List: https://www.elastic.co/guide/en/elasticsearch/reference/current/indices.html
+    -->
+    <indexer id="visual_search_data"
+             view_id="visual_search_data"
+             class="BelSmol\VisualSearch\Model\Indexer\VSData\Indexer"
+    >
+        <title translate="true">Visual Search Data</title>
+        <description translate="true">Visual search data index</description>
+    </indexer>
+</config>

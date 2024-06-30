@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2023 by https://github.com/annysmolyan
+ *
+ * This module provides a visual search functionality for an e-commerce store.
+ * For license details, please view the GNU General Public License v3 (GPL 3.0)
+ * https://www.gnu.org/licenses/gpl-3.0.en.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <visual_search>
+            <general>
+                <enabled>0</enabled>
+            </general>
+            <search_settings>
+                <include_all>1</include_all>
+                <search_items_count>50</search_items_count>
+                <min_relevance_scope>0.5</min_relevance_scope>
+                <api_product_page_size>10</api_product_page_size>
+            </search_settings>
+            <ai_settings>
+                <domain>http://localhost:5000/</domain>
+                <cnn_model>InceptionV3</cnn_model>
+            </ai_settings>
+            <vector_settings>
+                <batch_size>100</batch_size>
+                <upd_mode>by_cron</upd_mode>
+                <vector_upd_cron_schedule>0 0 * * *</vector_upd_cron_schedule>
+            </vector_settings>
+            <cleaning_settings>
+                <remove_tmp_img_by_cron>1</remove_tmp_img_by_cron>
+                <tmp_img_saved_count>10</tmp_img_saved_count>
+                <tmp_clean_dir_cron_schedule>0 0 * * *</tmp_clean_dir_cron_schedule>
+                <clean_queue_by_cron>1</clean_queue_by_cron>
+                <queue_rows_saved_count>10</queue_rows_saved_count>
+                <queue_table_clean_cron_schedule>0 0 * * *</queue_table_clean_cron_schedule>
+                <clean_search_request_by_cron>1</clean_search_request_by_cron>
+                <search_request_rows_saved_count>10</search_request_rows_saved_count>
+                <search_request_clean_cron_schedule>0 0 * * *</search_request_clean_cron_schedule>
+                <clean_vector_csv_by_cron>1</clean_vector_csv_by_cron>
+                <vector_csv_saved_count>5</vector_csv_saved_count>
+                <vector_csv_cron_schedule>0 0 * * *</vector_csv_cron_schedule>
+            </cleaning_settings>
+        </visual_search>
+    </default>
+</config>

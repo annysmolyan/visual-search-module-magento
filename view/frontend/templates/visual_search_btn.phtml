@@ -1,0 +1,50 @@
+<?php
+/**
+ * Copyright (c) 2023 by https://github.com/annysmolyan
+ *
+ * This module provides a visual search functionality for an e-commerce store.
+ * For license details, please view the GNU General Public License v3 (GPL 3.0)
+ * https://www.gnu.org/licenses/gpl-3.0.en.html
+ */
+
+/** Show the visual search button */
+?>
+
+<?php
+
+use Magento\Framework\View\Element\Template;
+
+/** @var Template $block  */
+?>
+
+<div id="visual-search-icon" class="visual-search-popup-open" data-bind="scope:'visualSearch'">
+
+    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+        <path d="M744.5-638.5V-718H665v-25.5h79.5V-823H770v79.5h79.5v25.5H770v79.5h-25.5Zm-603 502q-24.969 0-41.234-16.531Q84-169.562 84-193.772v-412.956q0-24.21 16.266-40.741Q116.531-664 141.5-664h116l73-79.5h244v25.5h-233L268-638.5H141.5q-14 0-23 9t-9 23V-194q0 14 9 23t23 9h571q13.5 0 22.75-9t9.25-23v-354H770v354q0 24.5-16.531 41t-40.739 16.5H141.5Zm285.5-127q57.5 0 97.25-39.375T564-400.5q0-57.5-39.75-97.25t-97.5-39.75q-57.75 0-97.25 39.75t-39.5 97.5q0 57.75 39.375 97.25T427-263.5Zm-.25-25.5q-47.75 0-79.5-31.645T315.5-400.5q0-47.5 31.645-79.5T427-512q47.5 0 79.5 32t32 79.75q0 47.75-32 79.5T426.75-289Zm.25-111.5Z"/>
+    </svg>
+
+    <script type="text/x-magento-init">
+        {
+           "#visual-search-icon": {
+                "BelSmol_VisualSearch/js/components/visual-search/popup-widget": {}
+           }
+        }
+    </script>
+
+</div>
+
+<?php
+/**
+ * WARNING! Need to have this "style tag"
+ * because need to apply styles to search input
+ * only if module enabled
+ */
+?>
+
+<style>
+    @media (min-width: 768px) {
+        .block.block-search {
+            width: 280px;
+        }
+    }
+</style>

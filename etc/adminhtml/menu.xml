@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2023 by https://github.com/annysmolyan
+ *
+ * This module provides a visual search functionality for an e-commerce store.
+ * For license details, please view the GNU General Public License v3 (GPL 3.0)
+ * https://www.gnu.org/licenses/gpl-3.0.en.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="BelSmol_VisualSearch::main"
+             title="Visual Search"
+             translate="title"
+             module="BelSmol_VisualSearch"
+             sortOrder="200"
+             resource="BelSmol_VisualSearch::menu"
+             dependsOnConfig="visual_search/general/enabled"
+        />
+        <add id="BelSmol_VisualSearch::configuration"
+             translate="title"
+             title="Configuration"
+             module="BelSmol_VisualSearch"
+             sortOrder="210"
+             action="admin/system_config/edit/section/visual_search"
+             resource="BelSmol_VisualSearch::menu"
+             parent="BelSmol_VisualSearch::main"
+             dependsOnConfig="visual_search/general/enabled"
+        />
+        <add id="BelSmol_VisualSearch::queue_list"
+             translate="title"
+             title="Queue List"
+             module="BelSmol_VisualSearch"
+             sortOrder="220"
+             action="visual_search/queue/index"
+             resource="BelSmol_VisualSearch::menu"
+             parent="BelSmol_VisualSearch::main"
+             dependsOnConfig="visual_search/general/enabled"
+        />
+    </menu>
+</config>

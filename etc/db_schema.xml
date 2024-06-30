@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2023 by https://github.com/annysmolyan
+ *
+ * This module provides a visual search functionality for an e-commerce store.
+ * For license details, please view the GNU General Public License v3 (GPL 3.0)
+ * https://www.gnu.org/licenses/gpl-3.0.en.html
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="visual_search_data" resource="default" engine="innodb" comment="Visual Search Data Table">
+        <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="ID"/>
+        <column xsi:type="int" name="product_id" unsigned="true" nullable="false" identity="false" comment="Product ID"/>
+        <column xsi:type="smallint" name="store_id" unsigned="true" nullable="false" identity="false" comment="Store ID"/>
+        <column xsi:type="mediumtext" name="vector" nullable="false" comment="Image Vector. Changing this value requires reindex"/>
+        <column xsi:type="varchar" name="path" nullable="false" comment="Image Path"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="foreign"
+                    referenceId="VISUAL_SEARCH_DATA_STORE_ID_STORE_STORE_ID"
+                    table="visual_search_data"
+                    column="store_id"
+                    referenceTable="store"
+                    referenceColumn="store_id"
+                    onDelete="CASCADE"
+        />
+        <constraint xsi:type="foreign"
+                    referenceId="VISUAL_SEARCH_DATA_PRODUCT_ID_CATALOG_PRODUCT_ENTITY_ENTITY_ID"
+                    table="visual_search_data"
+                    column="product_id"
+                    referenceTable="catalog_product_entity"
+                    referenceColumn="entity_id"
+                    onDelete="CASCADE"
+        />
+        <index referenceId="VISUAL_SEARCH_DATA_INDEX" indexType="btree">
+            <column name="product_id"/>
+            <column name="store_id"/>
+        </index>
+    </table>
+
+    <table name="visual_search_queue" resource="default" engine="innodb" comment="Visual Search Queue Task Table">
+        <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="ID"/>
+        <column xsi:type="varchar" name="started_by" nullable="false" comment="Started by"/>
+        <column xsi:type="varchar" name="status" nullable="false" comment="Status"/>
+        <column xsi:type="varchar" name="skus" nullable="true" comment="Skus"/>
+        <column xsi:type="text" name="log_message" nullable="true" comment="Log message"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Creation Time"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Update Time"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+
+    <table name="visual_search_request" resource="default" engine="innodb" comment="Visual Search Data Search Term">
+        <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="ID"/>
+        <column xsi:type="smallint" name="store_id" unsigned="false" nullable="false" identity="false" comment="Store ID"/>
+        <column xsi:type="varchar" name="search_param_value" nullable="false" comment="Search Param Value"/>
+        <column xsi:type="text" name="image_path" nullable="false" comment="Image Path"/>
+        <column xsi:type="text" name="categories" nullable="true" comment="Categories"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+</schema>

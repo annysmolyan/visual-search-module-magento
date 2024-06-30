@@ -1,0 +1,19 @@
+version: "3.7"
+
+services:
+  tensorflow:
+    container_name: tensorflow
+    build:
+      dockerfile: ./tensor.Dockerfile
+      context: .
+    volumes:
+      - ./source:/source
+      - MAGENTO_PUB_MEDIA_PATH_HERE:/magento_media #set mounting to magento pub/media folder. DON'T CHANGE /magento_media !!!
+      - MAGENTO_VAR_VISUAL_SEARCH_PATH_HERE:/magento_csv #set mounting to magento var/visual_search folder (for csv files). DON'T CHANGE /magento_csv !!!
+    tty: true
+    command: [ "bash", "-c", "jupyter notebook --port 8888 --ip 0.0.0.0 --allow-root --NotebookApp.token '' --no-browser & gunicorn -w 4 -b 0.0.0.0:5000 app:app" ]
+#    command: [ "bash", "-c", "jupyter notebook --port 8888 --ip 0.0.0.0 --allow-root --NotebookApp.token '' --no-browser & python app.py" ] #uncomment for developer server tests
+    ports:
+      - "8888:8888" #expose jupiter
+      - "5000:5000" #expose Flask Api
+

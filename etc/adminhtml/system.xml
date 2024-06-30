@@ -1,0 +1,199 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2023 by https://github.com/annysmolyan
+ *
+ * This module provides a visual search functionality for an e-commerce store.
+ * For license details, please view the GNU General Public License v3 (GPL 3.0)
+ * https://www.gnu.org/licenses/gpl-3.0.en.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="belsmol" translate="label" sortOrder="350">
+            <label>BelSmol</label>
+        </tab>
+        <section id="visual_search" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Visual Search</label>
+            <tab>belsmol</tab>
+            <resource>BelSmol_VisualSearch::config</resource>
+            <group id="general" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Settings</label>
+                <field id="version" translate="label" type="label" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Extension Version</label>
+                    <backend_model>BelSmol\VisualSearch\Model\Config\Version</backend_model>
+                </field>
+                <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Module Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Clean cache after changes. If enabled, the module admin menu item will be added after clean cache.</comment>
+                </field>
+            </group>
+            <group id="search_settings" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Search Settings</label>
+                <field id="enable_category_selection" translate="label comment" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Allow Customers Category Selection</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>If 'Yes' selected, then customers can select categories where to search</comment>
+                </field>
+                <field id="include_all" translate="label comment" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Include All Categories In Search</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[<strong>Reindex required after changes</strong>]]></comment>
+                </field>
+                <field id="included_categories" translate="label comment" type="multiselect" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Include In Search</label>
+                    <source_model>BelSmol\VisualSearch\Model\Config\Source\Category</source_model>
+                    <frontend_model>BelSmol\VisualSearch\Block\Adminhtml\TreeMultiSelect</frontend_model>
+                    <frontend_class>tree-multi-select</frontend_class>
+                    <comment><![CDATA[<strong>Reindex required after changes.</strong> Where to make search. All categories are included by default. The search mechanism will use products from the included categories. WARNING! All categories included may slow down performance]]> </comment>
+                    <depends>
+                        <field id="include_all">0</field>
+                    </depends>
+                    <validate>validate-no-empty</validate>
+                </field>
+                <field id="excluded_categories" translate="label comment" type="multiselect" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Exclude from Search</label>
+                    <source_model>BelSmol\VisualSearch\Model\Config\Source\Category</source_model>
+                    <frontend_model>BelSmol\VisualSearch\Block\Adminhtml\TreeMultiSelect</frontend_model>
+                    <frontend_class>tree-multi-select</frontend_class>
+                    <can_be_empty>1</can_be_empty>
+                    <comment><![CDATA[<strong>Reindex required after changes.</strong> The search mechanism won't use products from the selected categories]]></comment>
+                    <depends>
+                        <field id="include_all">1</field>
+                    </depends>
+                </field>
+                <field id="search_items_count" translate="label comment" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" canRestore="1">
+                    <label>Max Total Items Search Result Count</label>
+                    <validate>validate-no-empty validate-digits</validate>
+                    <comment>Maximum product items count which should be returned in search result.</comment>
+                </field>
+                <field id="min_relevance_scope" translate="label comment" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" canRestore="1">
+                    <label>Min Relevance Scope</label>
+                    <validate>validate-no-empty validate-number validate-number-range number-range-0-1</validate>
+                    <comment>Float value from 0 to 1. The closer to 1 the more accurate result will be returned</comment>
+                </field>
+                <field id="api_product_page_size" translate="label comment" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>REST API Product Page Size</label>
+                    <comment>Product count per page in API response.</comment>
+                </field>
+            </group>
+            <group id="ai_settings" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>AI Settings</label>
+                <field id="domain" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>AI Server Domain</label>
+                    <comment>WITH '/' at the end! Address of AI application. Can be domain, or ip address like http://0.0.0.0:5000/. Make sure the docker container is run.</comment>
+                </field>
+                <field id="cnn_model" translate="label comment" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Cnn Model</label>
+                    <source_model>BelSmol\VisualSearch\Model\Config\Source\CnnModel</source_model>
+                    <comment><![CDATA[<strong>Reindex required after changes.</strong> More details see in the AI application Readme file]]></comment>
+                </field>
+            </group>
+            <group id="vector_settings" translate="label" type="text" sortOrder="200" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Image Vector Settings</label>
+                <field id="upd_mode" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Update Product Vector</label>
+                    <source_model>BelSmol\VisualSearch\Model\Config\Source\VectorUpdateMode</source_model>
+                    <comment>Warning! GLOBAL SCOPE HERE! When to update product image vector. Update on save can slow down performance</comment>
+                </field>
+                <field id="vector_upd_cron_schedule" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Cron Schedule for Image Vector Update</label>
+                    <comment>By default - every day at night</comment>
+                    <depends>
+                        <field id="visual_search/vector_settings/upd_mode">by_cron</field>
+                    </depends>
+                </field>
+                <field id="batch_size" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="0" canRestore="1">
+                    <label>Batch Size</label>
+                    <validate>validate-no-empty validate-digits</validate>
+                    <comment>How many products should be processed in one batch when creating product's vectors. The lower amount the highest performance.</comment>
+                </field>
+            </group>
+            <group id="cleaning_settings" translate="label" type="text" sortOrder="200" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Cleaning Settings</label>
+                <field id="remove_tmp_img_by_cron" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Remove Temporary Search Images By Cron</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>When users make a search by image, then images are saved in pub/media/tmp/visual_search folder. Need to clean it to avoid server's memory limit error</comment>
+                </field>
+                <field id="tmp_img_saved_count" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0"  canRestore="1">
+                    <label>How Many Recent Temp Images To Keep</label>
+                    <comment>Keep e.g. last 10 images and remove the others.</comment>
+                    <validate>validate-no-empty validate-digits</validate>
+                    <depends>
+                        <field id="visual_search/cleaning_settings/remove_tmp_img_by_cron">1</field>
+                    </depends>
+                </field>
+                <field id="tmp_clean_dir_cron_schedule" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Cron Schedule for Tmp Search Image Cleaning</label>
+                    <comment>By default - every day at night</comment>
+                    <depends>
+                        <field id="visual_search/cleaning_settings/remove_tmp_img_by_cron">1</field>
+                    </depends>
+                </field>
+                <field id="clean_queue_by_cron" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Clean Queue Table By Cron</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Queue table may have a lot of log items, clean it to avoid DB memory limit error</comment>
+                </field>
+                <field id="queue_rows_saved_count" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0"  canRestore="1">
+                    <label>How Many Rows In Queue Table To Keep</label>
+                    <comment>Keep e.g. last 10 rows and remove the others.</comment>
+                    <validate>validate-no-empty validate-digits</validate>
+                    <depends>
+                        <field id="visual_search/cleaning_settings/clean_queue_by_cron">1</field>
+                    </depends>
+                </field>
+                <field id="queue_table_clean_cron_schedule" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Cron Schedule for Queue Table Cleaning</label>
+                    <comment>By default - every day at night</comment>
+                    <depends>
+                        <field id="visual_search/cleaning_settings/clean_queue_by_cron">1</field>
+                    </depends>
+                </field>
+                <field id="clean_search_request_by_cron" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Clean Visual Search Request Table By Cron</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Search request table may have a lot of search items, clean it to avoid DB memory limit error</comment>
+                </field>
+                <field id="search_request_rows_saved_count" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="0" showInStore="0"  canRestore="1">
+                    <label>How Many Rows In Search Request Table To Keep</label>
+                    <comment>Keep e.g. last 10 rows and remove the others.</comment>
+                    <validate>validate-no-empty validate-digits</validate>
+                    <depends>
+                        <field id="visual_search/cleaning_settings/clean_search_request_by_cron">1</field>
+                    </depends>
+                </field>
+                <field id="search_request_clean_cron_schedule" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Cron Schedule for Search Request Table Cleaning</label>
+                    <comment>By default - every day at night</comment>
+                    <depends>
+                        <field id="visual_search/cleaning_settings/clean_search_request_by_cron">1</field>
+                    </depends>
+                </field>
+                <field id="clean_vector_csv_by_cron" translate="label" type="select" sortOrder="60" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Clean Vector Csv Files By Cron</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>During indexation Magento generates csv files in var/visual_search folder. Clean this folder to avoid server memory limit error</comment>
+                </field>
+                <field id="vector_csv_saved_count" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="0" showInStore="0"  canRestore="1">
+                    <label>How Many Vector Csv Files To Keep</label>
+                    <comment>Keep e.g. last 10 files and remove the others.</comment>
+                    <validate>validate-no-empty validate-digits</validate>
+                    <depends>
+                        <field id="visual_search/cleaning_settings/clean_vector_csv_by_cron">1</field>
+                    </depends>
+                </field>
+                <field id="vector_csv_cron_schedule" translate="label comment" type="text" sortOrder="60" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Cron Schedule for Vector Csv Files Cleaning</label>
+                    <comment>By default - every day at night</comment>
+                    <depends>
+                        <field id="visual_search/cleaning_settings/clean_vector_csv_by_cron">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

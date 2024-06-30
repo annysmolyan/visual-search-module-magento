@@ -1,0 +1,36 @@
+<?php
+/**
+ * Copyright (c) 2023 by https://github.com/annysmolyan
+ *
+ * This module provides a visual search functionality for an e-commerce store.
+ * For license details, please view the GNU General Public License v3 (GPL 3.0)
+ * https://www.gnu.org/licenses/gpl-3.0.en.html
+ */
+
+/**
+ * @OVERRIDE: removed sorter
+ * Product list toolbar
+ *
+ * @var $block Toolbar
+ */
+
+use Magento\Catalog\Block\Product\ProductList\Toolbar;
+
+?>
+<?php if ($block->getCollection()->getSize()) :?>
+    <?php
+        $widget = json_decode($block->getWidgetOptionsJson(), true);
+        $widgetOptions = json_encode($widget['productListToolbarForm']);
+    ?>
+    <div class="toolbar toolbar-products" data-mage-init='{"productListToolbarForm":<?= /* @noEscape */ $widgetOptions ?>}'>
+        <?php if ($block->getIsBottom()): ?>
+            <?= $block->getPagerHtml() ?>
+            <?= $block->fetchView($block->getTemplateFile('Magento_Catalog::product/list/toolbar/limiter.phtml')) ?>
+        <?php else: ?>
+            <?php if ($block->isExpanded()): ?>
+                <?= $block->fetchView($block->getTemplateFile('Magento_Catalog::product/list/toolbar/viewmode.phtml')) ?>
+            <?php endif ?>
+            <?= $block->fetchView($block->getTemplateFile('Magento_Catalog::product/list/toolbar/amount.phtml')) ?>
+        <?php endif ?>
+    </div>
+<?php endif ?>

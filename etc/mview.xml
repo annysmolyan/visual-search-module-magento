@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright (c) 2023 by https://github.com/annysmolyan
+ *
+ * This module provides a visual search functionality for an e-commerce store.
+ * For license details, please view the GNU General Public License v3 (GPL 3.0)
+ * https://www.gnu.org/licenses/gpl-3.0.en.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Mview/etc/mview.xsd">
+    <!--
+        Tracking database changes for visual_search_data table
+        Responsible for the indexation by Cron
+    -->
+    <view id="visual_search_data" class="BelSmol\VisualSearch\Model\Indexer\VSData\Indexer" group="indexer">
+        <subscriptions>
+            <table name="visual_search_data" entity_column="entity_id" />
+        </subscriptions>
+    </view>
+</config>

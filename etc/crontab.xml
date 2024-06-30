@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2023 by https://github.com/annysmolyan
+ *
+ * This module provides a visual search functionality for an e-commerce store.
+ * For license details, please view the GNU General Public License v3 (GPL 3.0)
+ * https://www.gnu.org/licenses/gpl-3.0.en.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="belsmol_visual_search_cron_group">
+        <!--Run product vector images update by cron schedule-->
+        <job instance="BelSmol\VisualSearch\Cron\VisualSearchImageUpdateCron"
+             method="execute"
+             name="belsmol_vector_upd_cron"
+        >
+            <config_path>visual_search/vector_settings/vector_upd_cron_schedule</config_path>
+        </job>
+
+        <!--Run cleaning tmp search image by cron schedule-->
+        <job instance="BelSmol\VisualSearch\Cron\RemoveTmpSearchImageCron"
+             method="execute"
+             name="belsmol_tmp_search_clean_cron"
+        >
+            <config_path>visual_search/cleaning_settings/tmp_clean_dir_cron_schedule</config_path>
+        </job>
+
+        <!--Run cleaning queue table by cron schedule-->
+        <job instance="BelSmol\VisualSearch\Cron\CleanQueueTableCron"
+             method="execute"
+             name="belsmol_queue_table_clean_cron"
+        >
+            <config_path>visual_search/cleaning_settings/queue_table_clean_cron_schedule</config_path>
+        </job>
+
+        <!--Run cleaning visual search request table by cron schedule-->
+        <job instance="BelSmol\VisualSearch\Cron\CleanSearchRequestTableCron"
+             method="execute"
+             name="belsmol_search_request_table_clean_cron"
+        >
+            <config_path>visual_search/cleaning_settings/search_request_clean_cron_schedule</config_path>
+        </job>
+
+        <!--Run cleaning visual search vector files by cron schedule-->
+        <job instance="BelSmol\VisualSearch\Cron\CleanVectorFilesCron"
+             method="execute"
+             name="belsmol_vector_files_clean_cron"
+        >
+            <config_path>visual_search/cleaning_settings/vector_csv_cron_schedule</config_path>
+        </job>
+    </group>
+</config>

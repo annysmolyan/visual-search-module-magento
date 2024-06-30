@@ -1,0 +1,59 @@
+{
+    "visual_search_data": {
+        "column": {
+            "entity_id": true,
+            "product_id": true,
+            "store_id": true,
+            "vector": true,
+            "path": true
+        },
+        "index": {
+            "VISUAL_SEARCH_DATA_PRODUCT_ID_STORE_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "VISUAL_SEARCH_DATA_STORE_ID_STORE_STORE_ID": true,
+            "VISUAL_SEARCH_DATA_PRODUCT_ID_CATALOG_PRODUCT_ENTITY_ENTITY_ID": true
+        }
+    },
+    "visual_search_queue": {
+        "column": {
+            "entity_id": true,
+            "started_by": true,
+            "status": true,
+            "product_ids": true,
+            "log_message": true,
+            "created_at": true,
+            "updated_at": true,
+            "skus": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "visual_search_term": {
+        "column": {
+            "entity_id": true,
+            "store_id": true,
+            "search_param": true,
+            "image_base64_code": true,
+            "search_param_value": true,
+            "image": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "visual_search_request": {
+        "column": {
+            "entity_id": true,
+            "store_id": true,
+            "search_param_value": true,
+            "image_path": true,
+            "categories": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

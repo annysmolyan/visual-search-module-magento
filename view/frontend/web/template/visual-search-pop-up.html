@@ -1,0 +1,45 @@
+<div class="visual-search-popup-content" data-bind="afterRender: afterTemplateRender">
+
+    <div class="visual-search-category-selector-wrapper" data-bind="visible: canShowCategorySelector">
+        <p data-bind="i18n: 'Select categories for search:'"></p>
+        <label for="visual-search-categories">
+            <select class="visual-search-category-selector form-control"
+                    id="visual-search-categories"
+                    name="visual-search-categories[]"
+                    multiple="multiple"
+                    data-bind="disable: isAllCategoriesSearch, event:{change: selectCategories}"
+            >
+            </select>
+        </label>
+        <br/>
+        <input id="search-all-categories" type="checkbox" data-bind="checked: isAllCategoriesSearch">
+        <label for="search-all-categories" data-bind="i18n: 'Search everywhere'"></label>
+    </div>
+
+    <div class="visual-search-action-wrapper">
+        <button type="button" class="action primary" data-bind="click: openFileInput">
+            <span data-bind="i18n: 'Upload Image'"></span>
+        </button>
+        <button type="button" class="action primary" data-bind="visible: canShowSearchButton(), click: search">
+            <span data-bind="i18n: 'Search'"></span>
+        </button>
+    </div>
+
+    <div class="search-image-wrapper">
+        <input type="file"
+               name="search_image"
+               class="search-image-input"
+               id="search-image-input"
+               accept=".jpg, .jpeg, .png"
+               data-bind="event: { change: onFileSelect }"
+        />
+        <div>
+            <img id="search-image" data-bind="attr: { src: selectedImageData }">
+        </div>
+    </div>
+
+    <form id="visual-search-form-request" method="post" data-bind="attr: { action: VISUAL_SEARCH_REQUEST_ACTION }">
+        <input type="hidden" name="image">
+        <input type="hidden" name="categories">
+    </form>
+</div>

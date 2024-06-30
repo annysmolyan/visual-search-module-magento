@@ -1,0 +1,16 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Communication/etc/communication.xsd">
+<!--
+/**
+* Copyright (c) 2023 by https://github.com/annysmolyan
+*
+* This module provides a visual search functionality for an e-commerce store.
+* For license details, please view the GNU General Public License v3 (GPL 3.0)
+* https://www.gnu.org/licenses/gpl-3.0.en.html
+*/
+-->
+    <!--
+        Determines elements of the message queue system that all communication types use.
+        Create a topic and set an interface, the implementation of which describes the object contained in the request.
+     -->
+    <topic name="vsdataVectorChangeTopic" request="BelSmol\VisualSearch\API\Data\QueueTaskInterface" />
+</config>

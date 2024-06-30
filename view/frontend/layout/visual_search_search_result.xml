@@ -1,0 +1,71 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+<!--
+/**
+* Copyright (c) 2023 by https://github.com/annysmolyan
+*
+* This module provides a visual search functionality for an e-commerce store.
+* For license details, please view the GNU General Public License v3 (GPL 3.0)
+* https://www.gnu.org/licenses/gpl-3.0.en.html
+*/
+-->
+    <body>
+        <referenceContainer name="columns.top">
+            <!-- Init page title -->
+            <block class="Magento\Theme\Block\Html\Title"
+                name="page.main.title"
+                template="html/title.phtml"
+            />
+
+            <!-- Init messages from BE-->
+            <container name="page.messages" htmlTag="div" htmlClass="page messages">
+                <block name="ajax.message.placeholder"
+                       template="Magento_Theme::html/messages.phtml"/>
+                <block name="messages" as="messages"
+                       template="Magento_Theme::messages.phtml"
+                />
+            </container>
+        </referenceContainer>
+
+        <referenceContainer name="content">
+            <!-- Search results main content-->
+            <block class="BelSmol\VisualSearch\Block\VisualSearchResult"
+                name="visual_search_result"
+                template="BelSmol_VisualSearch::visual_search_result.phtml"
+            >
+                <arguments>
+                    <argument name="view_model" xsi:type="object">BelSmol\VisualSearch\ViewModel\SearchResultViewModel</argument>
+                    <argument name="options_data_view_model" xsi:type="object">Magento\Catalog\ViewModel\Product\OptionsData</argument>
+                </arguments>
+
+                <!-- "add to" block here, e.g. wishlist buttons, add to compare -->
+                <block class="Magento\Catalog\Block\Product\ProductList\Item\Container"
+                       name="category.product.addto" as="addto"
+                >
+                    <!-- Add to compare -->
+                    <block class="Magento\Catalog\Block\Product\ProductList\Item\AddTo\Compare"
+                           name="category.product.addto.compare" as="compare"
+                           template="Magento_Catalog::product/list/addto/compare.phtml"/>
+                    <!-- Add to wishlist -->
+                    <block class="Magento\Wishlist\Block\Catalog\Product\ProductList\Item\AddTo\Wishlist"
+                           name="category.product.addto.wishlist" as="wishlist" before="compare"
+                           template="Magento_Wishlist::catalog/product/list/addto/wishlist.phtml"/>
+                </block>
+
+                <!-- Product toolbar with pager-->
+                <block class="Magento\Catalog\Block\Product\ProductList\Toolbar"
+                       name="product_list_toolbar"
+                       template="BelSmol_VisualSearch::search_result/toolbar.phtml">
+                    <block class="Magento\Theme\Block\Html\Pager"
+                           name="product_list_toolbar_pager"
+                    />
+                </block>
+
+                <action method="setToolbarBlockName">
+                    <argument name="name" xsi:type="string">product_list_toolbar</argument>
+                </action>
+
+            </block>
+        </referenceContainer>
+    </body>
+</page>

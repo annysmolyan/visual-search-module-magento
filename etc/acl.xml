@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2023 by https://github.com/annysmolyan
+ *
+ * This module provides a visual search functionality for an e-commerce store.
+ * For license details, please view the GNU General Public License v3 (GPL 3.0)
+ * https://www.gnu.org/licenses/gpl-3.0.en.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="BelSmol_VisualSearch::all" title="Visual Search Module" sortOrder="10">
+                    <resource id="BelSmol_VisualSearch::config" title="Admin Config" sortOrder="10" />
+                    <resource id="BelSmol_VisualSearch::menu" title="Menu" sortOrder="10" />
+                    <resource id="BelSmol_VisualSearch::index_queue_task" title="See Queue Task" sortOrder="10" />
+                    <resource id="BelSmol_VisualSearch::delete_queue_task" title="Delete Queue Task" sortOrder="10" />
+                    <resource id="BelSmol_VisualSearch::truncate_queue_task" title="Truncate Queue Task" sortOrder="10" />
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

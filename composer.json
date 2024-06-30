@@ -1,0 +1,23 @@
+{
+    "name": "belsmol/module-visual-search",
+    "description": "Magento 2 Visual Search Extension",
+    "require": {
+        "php": ">=8.1",
+        "magento/framework": "*",
+        "magento/module-elasticsearch": "*",
+        "magento/module-elasticsearch-8": ">=100.4"
+    },
+    "type": "magento2-module",
+    "version": "1.0.0",
+    "license": [
+        "GPL-3.0"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "BelSmol\\VisualSearch\\": ""
+        }
+    }
+}

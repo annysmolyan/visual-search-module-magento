@@ -1,0 +1,162 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2023 by https://github.com/annysmolyan
+ *
+ * This module provides a visual search functionality for an e-commerce store.
+ * For license details, please view the GNU General Public License v3 (GPL 3.0)
+ * https://www.gnu.org/licenses/gpl-3.0.en.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!--Service contracts-->
+    <preference for="BelSmol\VisualSearch\API\ConfigStorageInterface"
+                type="BelSmol\VisualSearch\Model\ConfigStorage"
+    />
+    <preference for="BelSmol\VisualSearch\API\SearchServiceInterface"
+                type="BelSmol\VisualSearch\Service\SearchService"
+    />
+    <preference for="BelSmol\VisualSearch\API\Data\VSDataInterface"
+                type="BelSmol\VisualSearch\Model\VSData"
+    />
+    <preference for="BelSmol\VisualSearch\API\Data\SearchInputImageInterface"
+                type="BelSmol\VisualSearch\Model\SearchInputImage"
+    />
+    <preference for="BelSmol\VisualSearch\API\VectorGeneratorInterface"
+                type="BelSmol\VisualSearch\Model\VectorGenerator"
+    />
+    <preference for="BelSmol\VisualSearch\API\Data\VSSearchResultInterface"
+                type="BelSmol\VisualSearch\Model\Repository\VSSearchResult"
+    />
+    <preference for="BelSmol\VisualSearch\API\VSDataRepositoryInterface"
+                type="BelSmol\VisualSearch\Model\Repository\VSDataRepository"
+    />
+    <preference for="BelSmol\VisualSearch\API\CliLoggerInterface"
+                type="BelSmol\VisualSearch\Model\Logger\CliLogger"
+    />
+    <preference for="BelSmol\VisualSearch\API\SearchInputImageManagerInterface"
+                type="BelSmol\VisualSearch\Model\Manager\SearchInputImageManager"
+    />
+    <preference for="BelSmol\VisualSearch\API\SearchManagerInterface"
+                type="BelSmol\VisualSearch\Model\Manager\SearchManager"
+    />
+    <preference for="BelSmol\VisualSearch\API\VSDataManagerInterface"
+                type="BelSmol\VisualSearch\Model\Manager\VSDataManager"
+    />
+    <preference for="BelSmol\VisualSearch\API\DBManagerInterface"
+                type="BelSmol\VisualSearch\Model\Manager\DBManager"
+    />
+    <preference for="BelSmol\VisualSearch\API\Data\QueueTaskInterface"
+                type="BelSmol\VisualSearch\Model\QueueTask"
+    />
+    <preference for="BelSmol\VisualSearch\API\Data\QueueTaskSearchResultInterface"
+                type="BelSmol\VisualSearch\Model\Repository\QueueTaskSearchResult"
+    />
+    <preference for="BelSmol\VisualSearch\API\QueueTaskRepositoryInterface"
+                type="BelSmol\VisualSearch\Model\Repository\QueueTaskRepository"
+    />
+    <preference for="BelSmol\VisualSearch\API\QueueTaskManagerInterface"
+                type="BelSmol\VisualSearch\Model\Manager\QueueTaskManager"
+    />
+    <preference for="BelSmol\VisualSearch\API\FileCleanerInterface"
+                type="BelSmol\VisualSearch\Model\Utils\FileCleaner"
+    />
+    <preference for="BelSmol\VisualSearch\API\Data\HttpRemoteDTORequestInterface"
+                type="BelSmol\VisualSearch\HttpRemote\DTORequest"
+    />
+    <preference for="BelSmol\VisualSearch\API\Data\HttpRemoteDTOResponseInterface"
+                type="BelSmol\VisualSearch\HttpRemote\DTOResponse"
+    />
+    <preference for="BelSmol\VisualSearch\API\HttpRemoteDTOResponseMapperInterface"
+                type="BelSmol\VisualSearch\HttpRemote\DTOResponseMapper"
+    />
+    <preference for="BelSmol\VisualSearch\API\HttpRemoteClientInterface"
+                type="BelSmol\VisualSearch\HttpRemote\HttpClient"
+    />
+    <preference for="BelSmol\VisualSearch\API\AiManagerInterface"
+                type="BelSmol\VisualSearch\Model\Manager\AiManager"
+    />
+    <preference for="BelSmol\VisualSearch\API\ElasticsearchRequestBuilderInterface"
+                type="BelSmol\VisualSearch\Model\Elasticsearch\DTORequestBuilder"
+    />
+    <preference for="BelSmol\VisualSearch\API\ElasticsearchClientInterface"
+                type="BelSmol\VisualSearch\Model\Elasticsearch\Client"
+    />
+    <preference for="BelSmol\VisualSearch\API\ElasticsearchKnnRequestInterface"
+                type="BelSmol\VisualSearch\Model\Elasticsearch\Request\KnnRequest"
+    />
+    <preference for="BelSmol\VisualSearch\API\Data\ElasticsearchRequestInterface"
+                type="BelSmol\VisualSearch\Model\Elasticsearch\DTORequest"
+    />
+    <preference for="BelSmol\VisualSearch\API\Data\SearchRequestInterface"
+                type="BelSmol\VisualSearch\Model\SearchRequest"
+    />
+    <preference for="BelSmol\VisualSearch\API\SearchRequestManagerInterface"
+                type="BelSmol\VisualSearch\Model\Manager\SearchRequestManager"
+    />
+    <preference for="BelSmol\VisualSearch\API\SearchRequestRepositoryInterface"
+                type="BelSmol\VisualSearch\Model\Repository\SearchRequestRepository"
+    />
+    <preference for="BelSmol\VisualSearch\API\Data\SearchRequestSearchResultInterface"
+                type="BelSmol\VisualSearch\Model\Repository\SearchRequestSearchResult"
+    />
+    <preference for="BelSmol\VisualSearch\API\HttpLocalVisualSearchControllerInterface"
+                type="BelSmol\VisualSearch\HttpLocal\Controller\VisualSearchController"
+    />
+    <preference for="BelSmol\VisualSearch\API\Data\HttpLocalDTOResponseVisualSearchInterface"
+                type="BelSmol\VisualSearch\HttpLocal\DTOResponse\VisualSearchResponse"
+    />
+    <!--END: Service contracts-->
+
+    <!-- Add CLI commands here -->
+    <type name="Magento\Framework\Console\CommandListInterface">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="visual_search_build_image_vector" xsi:type="object">BelSmol\VisualSearch\Console\Command\BuildVectorDataCommand</item>
+                <item name="visual_search_update_image_vector" xsi:type="object">BelSmol\VisualSearch\Console\Command\UpdateVectorDataCommand</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- Define custom error logger -->
+    <virtualType name="VisualSearchErrorLogger" type="Magento\Framework\Logger\Monolog">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="error" xsi:type="object">BelSmol\VisualSearch\Model\Logger\LogHandler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Inject VisualSearchErrorLogger to construct-->
+    <type name="BelSmol\VisualSearch\Service\SearchService">
+        <arguments>
+            <argument name="logger" xsi:type="object">VisualSearchErrorLogger</argument>
+        </arguments>
+    </type>
+
+    <!-- ********** START: VISUAL_SEARCH_DATA INDEXER SETTINGS ********** -->
+    <!--Inject dimension provider here for visual_search_data indexer-->
+    <type name="BelSmol\VisualSearch\Model\Indexer\VSData\Indexer">
+        <arguments>
+            <argument name="dimensionProvider" xsi:type="object" shared="false">Magento\Store\Model\StoreDimensionProvider</argument>
+        </arguments>
+    </type>
+    <!--add visual_search_data indexer field mapper-->
+    <type name="Magento\Elasticsearch\Model\Adapter\FieldMapper\FieldMapperResolver">
+        <arguments>
+            <argument name="fieldMappers" xsi:type="array">
+                <item name="visual_search_data" xsi:type="string">BelSmol\VisualSearch\Model\Indexer\VSData\FieldMapper</item>
+            </argument>
+        </arguments>
+    </type>
+    <!--Map visual_search_data data for indexer, remove unnecessary attributes, clear data and so on-->
+    <type name="Magento\Elasticsearch\Model\Adapter\BatchDataMapper\DataMapperFactory">
+        <arguments>
+            <argument name="dataMappers" xsi:type="array">
+                <item name="visual_search_data" xsi:type="string">BelSmol\VisualSearch\Model\Indexer\VSData\BatchDataMapper</item>
+            </argument>
+        </arguments>
+    </type>
+    <!-- ********** END: VISUAL_SEARCH_DATA INDEXER SETTINGS ********** -->
+
+</config>

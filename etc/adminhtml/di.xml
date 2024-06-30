@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2023 by https://github.com/annysmolyan
+ *
+ * This module provides a visual search functionality for an e-commerce store.
+ * For license details, please view the GNU General Public License v3 (GPL 3.0)
+ * https://www.gnu.org/licenses/gpl-3.0.en.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <!-- ********** START: Queue UI Component Settings ********** -->
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="queue_task_listing_data_source" xsi:type="string">BelSmol\VisualSearch\Model\ResourceModel\QueueTask\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="BelSmol\VisualSearch\Model\ResourceModel\QueueTask\Grid\Collection"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult"
+    >
+        <arguments>
+            <argument name="mainTable" xsi:type="string">visual_search_queue</argument>
+            <argument name="resourceModel" xsi:type="string">BelSmol\VisualSearch\Model\ResourceModel\QueueTask</argument>
+        </arguments>
+    </virtualType>
+    <!-- ********** END: Queue UI Component Settings ********** -->
+
+</config>

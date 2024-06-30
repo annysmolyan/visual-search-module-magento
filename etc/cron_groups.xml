@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * Copyright (c) 2023 by https://github.com/annysmolyan
+ *
+ * This module provides a visual search functionality for an e-commerce store.
+ * For license details, please view the GNU General Public License v3 (GPL 3.0)
+ * https://www.gnu.org/licenses/gpl-3.0.en.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/cron_groups.xsd">
+    <group id="belsmol_visual_search_cron_group">
+        <schedule_generate_every>10</schedule_generate_every>
+        <schedule_ahead_for>20</schedule_ahead_for>
+        <schedule_lifetime>20</schedule_lifetime>
+        <history_cleanup_every>60</history_cleanup_every>
+        <history_success_lifetime>60</history_success_lifetime>
+        <history_failure_lifetime>5000</history_failure_lifetime>
+        <use_separate_process>1</use_separate_process>
+    </group>
+</config>

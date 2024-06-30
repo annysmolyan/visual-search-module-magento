@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2023 by https://github.com/annysmolyan
+ *
+ * This module provides a visual search functionality for an e-commerce store.
+ * For license details, please view the GNU General Public License v3 (GPL 3.0)
+ * https://www.gnu.org/licenses/gpl-3.0.en.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="catalog_product_save_after">
+        <!--
+            Every time when a product gets updated, create a queue task to check small_image changes,
+            if the image was changed then build a new vector and save it
+         -->
+        <observer name="belsmol-visualsearch-update-vector-img"
+                  instance="BelSmol\VisualSearch\Observer\UpdateProductImageVectorObserver"
+        />
+    </event>
+</config>

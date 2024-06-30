@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2023 by https://github.com/annysmolyan
+ *
+ * This module provides a visual search functionality for an e-commerce store.
+ * For license details, please view the GNU General Public License v3 (GPL 3.0)
+ * https://www.gnu.org/licenses/gpl-3.0.en.html
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <!-- Add select2 plugin for pretty multiselect -->
+        <css src="BelSmol_VisualSearch::lib/select2/css/select2.min.css"/>
+        <!-- Add cropperjs plugin for cropping images -->
+        <css src="BelSmol_VisualSearch::lib/cropperjs/css/cropper.min.css"/>
+    </head>
+    <body>
+        <referenceBlock name="header-wrapper">
+            <!-- Display visual search btn -->
+            <block name="visual.search.btn"
+                   as="visual.search.btn"
+                   before="-"
+                   template="BelSmol_VisualSearch::visual_search_btn.phtml"
+                   ifconfig="visual_search/general/enabled"
+            />
+
+            <!-- Display visual search popup -->
+            <block name="visual.search.popup"
+                   as="visual.search.popup"
+                   before="-"
+                   template="BelSmol_VisualSearch::visual_search_popup.phtml"
+                   ifconfig="visual_search/general/enabled"
+            >
+                <arguments>
+                    <argument name="viewModel" xsi:type="object">BelSmol\VisualSearch\ViewModel\SearchFormViewModel</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>
